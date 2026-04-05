@@ -57,5 +57,73 @@ fun HomeScreen(
                 textAlign = TextAlign.Center
             )
         }
+
+        // --- middle : role selection ---
+        Column (
+            modifier            = Modifier.padding( horizontal = 24.dp ),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text (
+                text       = "SELECT YOUR ROLE",
+                fontSize   = 13.sp,
+                color      = TextMuted,
+                fontWeight = FontWeight.Medium
+            )
+
+            // +--- ROLE BUTTONS ---+ //
+            // Sender button
+            RoleButton (
+                label       = "Sender",
+                description = "Report household status",
+                color       = UrgentRed,
+                onClick     = onSenderClick
+            )
+
+            // Receiver button
+            RoleButton (
+                label       = "Receiver",
+                description = "Monitor incoming reports",
+                color       = SafeGreen,
+                onClick     = onReceiverClick
+            )
+        }
+
+
+
+    }
+}
+
+// +----- ROLE BUTTON -----+ //
+
+@Composable
+fun RoleButton (
+    label : String,
+    description: String,
+    color: Color,
+    onClick: () -> Unit
+) {
+    Button (
+        onClick  = onClick,
+        colors   = ButtonDefaults.buttonColors(containerColor = color),
+        shape    = RoundedCornerShape( 14.dp ),
+        modifier = Modifier
+            .fillMaxWidth()
+            .height( 80.dp )
+    ) {
+        Column (horizontalAlignment = Alignment.CenterHorizontally) {
+            Text (
+                text       = label,
+                fontSize   = 20.sp,
+                fontWeight = FontWeight.Bold,
+                color      = Color.White
+            )
+
+            Text (
+                text = description,
+                fontSize = 12.sp,
+                color = Color.White.copy( alpha = 0.75f )
+            )
+        }
     }
 }
