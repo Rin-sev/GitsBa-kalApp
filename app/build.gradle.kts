@@ -68,4 +68,8 @@ dependencies {
 
     // Icons extended (gives you more icon options)
     implementation("androidx.compose.material:material-icons-extended")
+
+    // +--- AS PER GOOGLE AI ---+
+    implementation("androidx.navigation:navigation-compose:2.8.0")
+
 }

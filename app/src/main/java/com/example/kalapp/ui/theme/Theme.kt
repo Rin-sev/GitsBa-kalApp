@@ -1,3 +1,4 @@
+// FIXED USING GOOGLE AI
 package com.example.kalapp.ui.theme
 
 import android.app.Activity
@@ -12,32 +13,31 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+    primary = DispatchedBlue,     // Changed from Purple80
+    secondary = UnknownGray,      // Changed from PurpleGrey80
+    tertiary = UrgentRed,         // Changed from Pink80
+    background = BackgroundDark,
+    surface = BackgroundDark,
+    onPrimary = SurfaceWhite,
+    onBackground = SurfaceWhite,
+    onSurface = SurfaceWhite
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+    primary = DispatchedBlue,     // Changed from Purple40
+    secondary = UnknownGray,      // Changed from PurpleGrey40
+    tertiary = UrgentRed,         // Changed from Pink40
+    background = BackgroundLight,
+    surface = SurfaceWhite,
+    onPrimary = SurfaceWhite,
+    onBackground = TextPrimary,
+    onSurface = TextPrimary
 )
 
 @Composable
 fun KalAppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false, // Set to false to force your custom colors
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
@@ -45,14 +45,13 @@ fun KalAppTheme(
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
-
         darkTheme -> DarkColorScheme
         else -> LightColorScheme
     }
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = Typography,
+        typography = Typography, // Ensure Typography is defined in Type.kt
         content = content
     )
 }

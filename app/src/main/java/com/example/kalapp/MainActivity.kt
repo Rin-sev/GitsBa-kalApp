@@ -21,6 +21,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.modifier.modifierLocalOf
 import androidx.compose.foundation.layout.Column
 import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.rememberNavController
+import com.example.kalapp.ui.screens.HomeScreen
+
+// ADDED AS PER GOOGLE AI
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,20 +35,35 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             KalAppTheme {
-                Scaffold { innerPadding ->
-
-                    Column (
-                        modifier = Modifier
-                            .padding ( innerPadding )
-                            .padding( 16.dp ),
-                        verticalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        Text( text = "Hello, World!" )
-                        Text( text = "Gits Ba was here!" )
-                    }
-
-                }
+                KalAppNavigation()
             }
+        }
+    }
+}
+
+
+@Composable
+fun KalAppNavigation() {
+    val navController = rememberNavController()
+
+    NavHost (
+        navController    = navController,
+        startDestination = "home"
+    ) {
+        composable("home") {
+            HomeScreen(
+                onSenderClick   = { navController.navigate("sender") },
+                onReceiverClick = { navController.navigate("receiver") }
+            )
+        }
+
+        // placeholder routes for now
+        composable("sender") {
+
+        }
+
+        composable("receiver") {
+
         }
     }
 }
