@@ -29,7 +29,7 @@ fun HomeScreen(
         horizontalAlignment = Alignment.CenterHorizontally
 
     ) {
-        // --- top: app identity ---
+        // +--- top: app identity ---+ //
         Column(
             modifier            = Modifier.padding(top = 80.dp, start = 24.dp, end = 24.dp),
             horizontalAlignment = Alignment.CenterHorizontally
@@ -58,7 +58,7 @@ fun HomeScreen(
             )
         }
 
-        // --- middle : role selection ---
+        // --- middle : role selection --- //
         Column (
             modifier            = Modifier.padding( horizontal = 24.dp ),
             verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -89,8 +89,14 @@ fun HomeScreen(
             )
         }
 
-
-
+        // +--- bottom : footer ---+ //
+        Text (
+            text      = "<footer message here>>",
+            fontSize  = 11.sp,
+            color     = TextSecondary,
+            modifier  = Modifier.padding(bottom = 32.dp),
+            textAlign = TextAlign.Center
+        )
     }
 }
 
