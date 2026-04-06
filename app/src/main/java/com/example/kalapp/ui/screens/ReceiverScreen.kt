@@ -280,7 +280,7 @@ private fun LogRow(
             Text(
                 text = message.status.label,
                 color = if (message.acknowledged) TextMuted else statusColor,
-                fontSize = 10.sp,
+                fontSize = 8.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier
                     .background(
