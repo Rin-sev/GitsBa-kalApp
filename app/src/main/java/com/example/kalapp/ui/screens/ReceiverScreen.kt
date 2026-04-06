@@ -32,14 +32,14 @@ fun ReceiverScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(BackgroundDark)
+            .background(BackgroundLight)
             .padding(16.dp)
     ) {
 
         // -- Header ---------------------------------------------------------------------
         Text(
             text = "Coordinator Dashboard",
-            color = Color.White,
+            color = Color.Black,
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(bottom = 16.dp)
@@ -58,7 +58,7 @@ fun ReceiverScreen(
         // -- Update log header ----------------------------------------------------------
         Text(
             text = "Update Log",
-            color = Color.White,
+            color = Color.Black,
             fontSize = 15.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(bottom = 6.dp)
@@ -141,14 +141,14 @@ private fun StatusCounterRow(counters: TriageCounters) {
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        // Row 2: DISPATCHED (centered, half-width)
+        // Row 2: ACKNOWLEDGED (centered, half-width)
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center
         ) {
             CounterPill(
-                label = "DISPATCHED",
-                count = counters.dispatched,
+                label = "ACKNOWLEDGED",
+                count = counters.acknowledged,
                 bgColor = DispatchedBlue,
                 textColor = Color.White,
                 modifier = Modifier.fillMaxWidth(0.5f)
@@ -210,7 +210,7 @@ private fun LogTableHeader() {
 private fun HeaderCell(text: String, modifier: Modifier) {
     Text(
         text = text,
-        color = TextMuted,
+        color = Color.White,
         fontSize = 11.sp,
         fontWeight = FontWeight.SemiBold,
         modifier = modifier,
@@ -337,7 +337,7 @@ private fun SampleInjectButton(viewModel: ReceiverViewModel) {
             )
             index++
         },
-        colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.White),
+        colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.Black),
         modifier = Modifier.fillMaxWidth()
     ) {
         Text("[ DEV ] Inject sample SMS report", fontSize = 12.sp)

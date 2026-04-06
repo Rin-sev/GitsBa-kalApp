@@ -28,7 +28,7 @@ fun HomeScreen(
     Column (
         modifier = Modifier
             .fillMaxSize()
-            .background(BackgroundDark),
+            .background(BackgroundLight),
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally
 

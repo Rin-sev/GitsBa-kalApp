@@ -247,7 +247,7 @@ fun SenderScreen(viewModel: SenderViewModel = viewModel()) {
                 OutlinedTextField(
                     value = uiState.selectedHousehold?.let {
                         "${it.id} - ${it.name}"
-                    } ?: "--Select a household --",
+                    } ?: "Select a household",
                     onValueChange = {},
                     readOnly = true,
                     trailingIcon = {
