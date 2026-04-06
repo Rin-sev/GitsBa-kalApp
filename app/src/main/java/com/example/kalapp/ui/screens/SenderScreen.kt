@@ -242,7 +242,7 @@ fun SenderScreen(viewModel: SenderViewModel = viewModel()) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .menuAnchor(),
-                    textStyle = LocalTextStyle.current.copy(fontSize = 12.sp)
+                    textStyle = LocalTextStyle.current.copy(fontSize = 12.sp, color = Color.Black)
                 )
 
                 ExposedDropdownMenu(
