@@ -3,8 +3,8 @@ package com.example.kalapp.ui.theme
 import androidx.compose.ui.graphics.Color
 
 // Status colors
-val UrgentRed      = Color(0xFFCC2222)
-val EvacuatedAmber = Color(0xFFB38600)
+val UrgentRed      = Color(0xFFC20000)
+val EvacuatedAmber = Color(0xFFF5B801)
 val SafeGreen      = Color(0xFF2D7A2D)
 val UnknownGray    = Color(0xFF888780)
 val DispatchedBlue = Color(0xFF185FA5)
