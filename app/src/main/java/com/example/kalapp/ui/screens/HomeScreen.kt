@@ -46,12 +46,6 @@ fun HomeScreen(
             )
             Spacer ( modifier = Modifier.height(8.dp) )
 
-            Text (
-                text      = "Gits Ba Triage",
-                fontSize  = 14.sp,
-                color     = TextMuted,
-                textAlign = TextAlign.Center
-            )
             Spacer ( modifier = Modifier.height(4.dp) )
 
             Text (
@@ -95,10 +89,10 @@ fun HomeScreen(
 
         // +--- bottom : footer ---+ //
         Text (
-            text      = "<footer message here>>",
+            text      = "ⓒ 2026 Gits Ba",
             fontSize  = 11.sp,
             color     = TextSecondary,
-            modifier  = Modifier.padding(bottom = 32.dp),
+            modifier  = Modifier.padding(bottom = 20.dp),
             textAlign = TextAlign.Center
         )
     }

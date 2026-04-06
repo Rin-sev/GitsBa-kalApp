@@ -151,27 +151,21 @@ fun SenderScreen(viewModel: SenderViewModel = viewModel()) {
             .padding(15.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)){
 
-        //panel label - mirrors: <h2>Sender Panel</h2>
-        Text(
-            text = "Sender Panel",
-            fontSize = 18.sp,
-            fontWeight = FontWeight.Bold,
-            color = TextPrimary)
-
         //sender-screen - mirrors: #upper-screen border + app name + buttons
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .border(1.dp,Color.Gray)
+                .height(400.dp)
                 .padding(5.dp),
             horizontalAlignment = Alignment.CenterHorizontally){
 
             Image(
                 painter = painterResource(id = R.drawable.kalapp_logo),
                 contentDescription = "kalApp logo",
-                modifier = Modifier.size(100.dp)
+                modifier = Modifier.size(125.dp)
             )
 
+            Spacer ( modifier = Modifier.height(10.dp) )
 
             //buttons-div - mirrors: #buttons-div column of three buttons
             Column(
