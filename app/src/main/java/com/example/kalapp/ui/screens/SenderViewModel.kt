@@ -10,6 +10,10 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import java.time.LocalDateTime
 import kotlin.String
+import android.Manifest
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+
 
 
 data class SenderUiState (
@@ -52,6 +56,10 @@ class SenderViewModel : ViewModel() {
 
         // SMS logic goes here
 
+    }
+
+    fun onDropdownDismiss() {
+        _uiState.value = _uiState.value.copy(isDropdownExpanded = false)
     }
 
 }
