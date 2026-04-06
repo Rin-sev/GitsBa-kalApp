@@ -7,6 +7,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.kalapp.model.Household
+import com.example.kalapp.model.TriageMessage
+import.com.example.kalapp.model.TriageStatus
+import com.example.kalapp.ui.theme.*
 
 @Composable
 fun SenderScreen() {
