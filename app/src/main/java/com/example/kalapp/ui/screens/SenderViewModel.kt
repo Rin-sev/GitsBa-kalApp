@@ -54,4 +54,8 @@ class SenderViewModel : ViewModel() {
 
     }
 
+    fun onDropdownDismiss() {
+        _uiState.value = _uiState.value.copy(isDropdownExpanded = false)
+    }
+
 }
