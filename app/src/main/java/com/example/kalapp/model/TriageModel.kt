@@ -38,11 +38,5 @@ enum class TriageStatus(val label : String ) {
 // hardcoded list of household names
 val sampleHouseholds = listOf(
     Household("SRQ-001", "Dela Cruz"),
-    Household("SRQ-002", "Reyes"),
-    Household("SRQ-003", "Santos"),
-    Household("SRQ-004", "Garcia"),
-    Household("SRQ-005", "Mendoza"),
-    Household("SRQ-006", "Torres"),
-    Household("SRQ-007", "Flores"),
-    Household("SRQ-008", "Rivera")
+    Household("SRQ-002", "Reyes")
 )

@@ -1,5 +1,8 @@
 package com.example.kalapp.ui.screens
 
+import android.Manifest
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -125,6 +128,17 @@ fun SentLogTable(entries: List<TriageMessage>){
 @Composable
 fun SenderScreen(viewModel: SenderViewModel = viewModel()) {
     val uiState by viewModel.uiState.collectAsState()
+
+    //SMS permission launcher
+    val permissionLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) {isGranted->
+        viewModel.onSmsPermssionResult(isGranted)
+    }
+
+    LaunchedEffect(Unit){
+        permissionLauncher.launch(Manifest.permission.SEND_SMS)
+    }
 
     //mirrors: .panel-emulation - aliceblue background, column layout
     Column(
@@ -262,6 +276,16 @@ fun SenderScreen(viewModel: SenderViewModel = viewModel()) {
                     }
                 }
             }
+        }
+
+        //SMS result feedback
+        uiState.lastSmsResult?.let{result ->
+            Text(
+                text = result,
+                fontSize = 10.sp,
+                color = if(result.startsWith("SMS sent")) Color(0xFF27AE60) else Color.Red,
+                modifier = Modifier.padding(top=4.dp)
+            )
         }
             //lower screen - mirrors: #lower-screen +#scrollable +#entry-table
             Column(
