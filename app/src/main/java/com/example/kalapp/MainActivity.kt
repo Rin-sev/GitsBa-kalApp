@@ -28,6 +28,10 @@ import com.example.kalapp.ui.screens.HomeScreen
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 
+// IMPORT SCREENS
+import com.example.kalapp.ui.screens.SenderScreen
+import com.example.kalapp.ui.screens.ReceiverScreen
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,11 +63,11 @@ fun KalAppNavigation() {
 
         // placeholder routes for now
         composable("sender") {
-
+            SenderScreen()
         }
 
         composable("receiver") {
-
+            ReceiverScreen()
         }
     }
 }
