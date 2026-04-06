@@ -3,6 +3,7 @@ package com.example.kalapp.ui.screens
 import android.Manifest
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -21,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -29,6 +31,7 @@ import com.example.kalapp.model.Household
 import com.example.kalapp.model.TriageMessage
 import com.example.kalapp.model.TriageStatus
 import com.example.kalapp.ui.theme.*
+import com.example.kalapp.R
 
 //sent log table
 //mirrors: #scrollable + #entry-table with thead(Date, Time, Status, House id)
@@ -163,16 +166,12 @@ fun SenderScreen(viewModel: SenderViewModel = viewModel()) {
                 .padding(5.dp),
             horizontalAlignment = Alignment.CenterHorizontally){
 
-            //mirrors: #app-name - replace with image() when logo is ready
-            Text(
-                text = "kalApp",
-                fontSize = 30.sp,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 6.dp, bottom = 10.dp)
+            Image(
+                painter = painterResource(id = R.drawable.kalapp_logo),
+                contentDescription = "kalApp logo",
+                modifier = Modifier.size(100.dp)
             )
+
 
             //buttons-div - mirrors: #buttons-div column of three buttons
             Column(

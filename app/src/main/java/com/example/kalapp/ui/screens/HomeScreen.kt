@@ -41,9 +41,7 @@ fun HomeScreen(
             Image (
                 painter = painterResource( id = R.drawable.kalapp_logo ),
                 contentDescription = "kalApp logo",
-                modifier = Modifier
-                    .height ( 80.dp )
-                    .widthIn ( max = 240.dp ),
+                modifier = Modifier.size(200.dp),
                 contentScale = ContentScale.Fit
             )
             Spacer ( modifier = Modifier.height(8.dp) )
