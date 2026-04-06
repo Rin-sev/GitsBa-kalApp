@@ -14,7 +14,7 @@ data class TriageCounters(
     val urgent: Int = 0,
     val evacuated: Int = 0,
     val safe: Int = 0,
-    val acknowledged: Int = 0   // acknowledged == true
+    val dispatched: Int = 0   // acknowledged == true
 )
 
 class ReceiverViewModel : ViewModel() {
