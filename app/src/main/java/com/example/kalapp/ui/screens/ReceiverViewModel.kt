@@ -1,12 +1,20 @@
 package com.example.kalapp.ui.screens
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.kalapp.KalAppDatabase
+import com.example.kalapp.SmsMessageBus
 import com.example.kalapp.model.TriageMessage
 import com.example.kalapp.model.TriageStatus
+import com.example.kalapp.model.toDomain
+import com.example.kalapp.model.toEntity
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 // Counters from the message log
 data class TriageCounters(
@@ -17,8 +25,10 @@ data class TriageCounters(
     val dispatched: Int = 0   // acknowledged == true
 )
 
-class ReceiverViewModel : ViewModel() {
+class ReceiverViewModel (application: Application) : AndroidViewModel(application) {
     // --- Message log (newest first) ---
+
+    private val dao = KalAppDatabase.getInstance(application).triageMessageDao()
     private val _messages = MutableStateFlow<List<TriageMessage>>(emptyList())
     val messages: StateFlow<List<TriageMessage>> = _messages.asStateFlow()
 
@@ -31,24 +41,33 @@ class ReceiverViewModel : ViewModel() {
     // TODO: wire up SmsReceiver BroadcastReceiver here
     //---------------------------------------------------------------------------
 
-    fun onMessageReceived(message: TriageMessage) {
-        _messages.update { current ->
-            listOf(message) + current    // newest on top
-        }
-        recomputeCounters()
-    }
-
-    //---------------------------------------------------------------------------
-    // Acknowledge / Respond to a household - flips acknowledged = true
-    //---------------------------------------------------------------------------
-
-    fun acknowledge(messageId: String) {
-        _messages.update { current ->
-            current.map { msg ->
-                if (msg.id == messageId) msg.copy(acknowledged = true) else msg
+    init {
+        // Observe Room database - auto-updates when new SMS arrives
+        viewModelScope.launch {
+            dao.observeAll().collect { entities ->
+                val domainList = entities.map { it.toDomain() }
+                _messages.value = domainList
+                recomputeCounters(domainList)
             }
         }
-        recomputeCounters()
+
+        // Also collect from bus if app is open
+        viewModelScope.launch {
+            SmsMessageBus.incoming.collect { message ->
+                dao.insert(message.toEntity())
+            }
+        }
+
+
+        //---------------------------------------------------------------------------
+        // Acknowledge / Respond to a household - flips acknowledged = true
+        //---------------------------------------------------------------------------
+
+        fun acknowledge(messageId: String) {
+            viewModelScope.launch {
+                dao.acknowledge(messageId)
+            }
+        }
     }
 
     //---------------------------------------------------------------------------
@@ -58,7 +77,7 @@ class ReceiverViewModel : ViewModel() {
     // dispatched = acknowledged == true (regardless of status)
     //---------------------------------------------------------------------------
 
-    private fun recomputeCounters() {
+    private fun recomputeCounters(list: List<TriageMessage>) {
         val list = _messages.value
         _counters.update {
             TriageCounters(
@@ -76,5 +95,9 @@ class ReceiverViewModel : ViewModel() {
     // Note to remove before production
     //---------------------------------------------------------------------------
 
-    fun injectSample(message: TriageMessage) = onMessageReceived(message)
+    fun injectSample(message: TriageMessage) {
+        viewModelScope.launch {
+            dao.insert(message.toEntity())
+        }
+    }
 }

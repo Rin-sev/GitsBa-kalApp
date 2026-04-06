@@ -1,5 +1,8 @@
 package com.example.kalapp.ui.screens
 
+import android.Manifest
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -27,6 +30,13 @@ fun ReceiverScreen(
 ) {
     val messages by viewModel.messages.collectAsState()
     val counters by viewModel.counters.collectAsState()
+
+    val permissionLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) {}
+        LaunchedEffect(Unit){
+            permissionLauncher.launch(Manifest.permission.RECEIVE_SMS)
+        }
 
     // --- mirrors: #receiver-panel ---
     Column(
