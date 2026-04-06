@@ -131,25 +131,22 @@ fun SenderScreen(viewModel: SenderViewModel = viewModel()) {
             .fillMaxSize()
             .background(Color(0xFFF0F8FF)) //aliceblue
             .padding(15.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
+            verticalArrangement = Arrangement.spacedBy(8.dp)){
 
         //panel label - mirrors: <h2>Sender Panel</h2>
         Text(
             text = "Sender Panel",
             fontSize = 18.sp,
             fontWeight = FontWeight.Bold,
-            color = TextPrimary
-        )
+            color = TextPrimary)
 
         //sender-screen - mirrors: #upper-screen border + app name + buttons
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .border(1.dp, Color.Gray)
+                .border(1.dp,Color.Gray)
                 .padding(5.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
+            horizontalAlignment = Alignment.CenterHorizontally){
 
             //mirrors: #app-name - replace with image() when logo is ready
             Text(
@@ -168,8 +165,7 @@ fun SenderScreen(viewModel: SenderViewModel = viewModel()) {
                     .fillMaxWidth()
                     .padding(horizontal = 12.dp, vertical = 8.dp),
                 verticalArrangement = Arrangement.spacedBy(5.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
+                horizontalAlignment = Alignment.CenterHorizontally){
 
                 //mirrors: #urgent-button
                 StatusButton(
@@ -178,7 +174,7 @@ fun SenderScreen(viewModel: SenderViewModel = viewModel()) {
                     borderColor = Color(0xFF8B0000), //color-immediate-border
                     textColor = Color.White,
                     enabled = uiState.selectedHousehold != null,
-                    onClick = { viewModel.sendStatus(TriageStatus.URGENT) }
+                    onClick = {viewModel.sendStatus(TriageStatus.URGENT)}
                 )
 
                 //mirrors: #evacuated-button
@@ -188,7 +184,7 @@ fun SenderScreen(viewModel: SenderViewModel = viewModel()) {
                     borderColor = Color(0xFFB38600), //color-evacuated-border
                     textColor = Color.Black,
                     enabled = uiState.selectedHousehold != null,
-                    onClick = { viewModel.sendStatus(TriageStatus.EVACUATED) }
+                    onClick = {viewModel.sendStatus(TriageStatus.EVACUATED)}
                 )
 
                 //mirror: #safe-button
@@ -198,7 +194,7 @@ fun SenderScreen(viewModel: SenderViewModel = viewModel()) {
                     borderColor = Color(0xFF1E8449), //color-safe-border
                     textColor = Color.White,
                     enabled = uiState.selectedHousehold != null,
-                    onClick = { viewModel.sendStatus(TriageStatus.SAFE) }
+                    onClick = {viewModel.sendStatus(TriageStatus.SAFE)}
                 )
 
                 //hint shown when no household is selected yet
@@ -223,16 +219,7 @@ fun SenderScreen(viewModel: SenderViewModel = viewModel()) {
             }
         }
 
-            //house-id-div - mirrors: #house-id-div dropdown at the bottom of panel
-            HouseholdDropdown(
-                households = uiState.households,
-                selectedHousehold = uiState.selectedHousehold,
-                expanded = uiState.isDropdownExpanded,
-                onToggle = { viewModel.onDropdownDismiss()},
-                onDismiss = { viewModel.onDropdownDismiss() },
-                onSelect = { viewModel.onHouseholdSelected(it)}
-            )
-}
+        }
 
 //status button
 // mirrors: #button-div button - width 225dp, height 65dp, bold 25sp, groove border
@@ -268,68 +255,15 @@ fun StatusButton(
             color = if (enabled) textColor else textColor.copy(alpha = 0.5f)
         )
     }
-}
 
-//household dropdown
-//mirrors: #house-id-div select#house-id-dropdown
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-
-fun HouseholdDropdown(
-    households: List<Household>,
-    selectedHousehold: Household?,
-    expanded: Boolean,
-    onToggle: ()->Unit,
-    onDismiss:()->Unit,
-    onSelect: (Household)-> Unit
-) {
-    ExposedDropdownMenuBox(
-        expanded = expanded,
-        onExpandedChange = { onToggle() },
-        modifier = Modifier
-            .fillMaxWidth()
-            .wrapContentWidth(Alignment.CenterHorizontally)
+    Box (
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
     ) {
-        OutlinedTextField(
-            value = selectedHousehold?.let { "${it.id}" } ?: "Select an option",
-            onValueChange = {},
-            readOnly = true,
-            trailingIcon = {
-                Icon(Icons.Default.ArrowDropDown, contentDescription = null)
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .menuAnchor(),
-            textStyle = LocalTextStyle.current.copy(fontSize = 13.sp),
-            colors = OutlinedTextFieldDefaults.colors(
-                focusedBorderColor = Color.Black,
-                unfocusedBorderColor = Color.Gray
-            )
+        Text (
+            text = "Hello, World! You are in the Sender Screen.",
+            fontSize = 24.sp
         )
-        ExposedDropdownMenu(
-            expanded = expanded,
-            onDismissRequest = onDismiss
-        ) {
-            households.forEach { household ->
-                DropdownMenuItem(
-                    text = {
-                        Column {
-                            Text(
-                                text = household.id,
-                                fontSize = 13.sp,
-                                fontWeight = FontWeight.Medium,
-                                color = TextPrimary
-                            )
-                            Text(
-                                text = household.name,
-                                fontSize = 11.sp, color = TextSecondary
-                            )
-                        }
-                    },
-                    onClick = { onSelect(household) }
-                )
-            }
-        }
     }
 }
