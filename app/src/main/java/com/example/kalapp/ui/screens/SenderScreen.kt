@@ -255,15 +255,4 @@ fun StatusButton(
             color = if (enabled) textColor else textColor.copy(alpha = 0.5f)
         )
     }
-
-
-    Box (
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Text (
-            text = "Hello, World! You are in the Sender Screen.",
-            fontSize = 24.sp
-        )
-    }
 }
