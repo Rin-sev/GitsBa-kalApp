@@ -7,7 +7,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Arrow.DropDown
+import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.foundation.layout.Box
@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.kalapp.model.Household
 import com.example.kalapp.model.TriageMessage
-import.com.example.kalapp.model.TriageStatus
+import com.example.kalapp.model.TriageStatus
 import com.example.kalapp.ui.theme.*
 
 // sender screen root
@@ -118,6 +118,37 @@ fun SenderScreen(viewModel: SenderViewModel = viewModel()) {
         Text (
             text = "Hello, World! You are in the Sender Screen.",
             fontSize = 24.sp
+        )
+    }
+}
+
+
+@Composable
+fun StatusButton (
+    label : String,
+    bgColor : Color,
+    borderColor : Color,
+    textColor : Color,
+    enabled : Boolean,
+    onClick : () -> Unit
+) {
+    Button (
+        onClick = onClick,
+        enabled = enabled,
+        colors = ButtonDefaults.buttonColors (
+            containerColor = bgColor,
+            disabledContainerColor = bgColor.copy ( alpha = 0.35f )
+        ),
+        shape = RoundedCornerShape (5.dp),
+        modifier = Modifier
+            .width ( 225.dp )
+            .height ( 65.dp )
+    ) {
+        Text (
+            text = label,
+            fontSize = 25.sp,
+            fontWeight = FontWeight.Bold,
+            color = if (enabled) textColor else textColor.copy (alpha = 0.5f)
         )
     }
 }
