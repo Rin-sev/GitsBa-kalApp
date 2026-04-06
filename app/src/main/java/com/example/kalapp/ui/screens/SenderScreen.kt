@@ -121,6 +121,7 @@ fun SentLogTable(entries: List<TriageMessage>){
 
 // sender screen root
 //mirrors: #sender-panel > #sender-screen > #upper-screen + #lower-screen + #house-id-div
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SenderScreen(viewModel: SenderViewModel = viewModel()) {
     val uiState by viewModel.uiState.collectAsState()
@@ -206,6 +207,59 @@ fun SenderScreen(viewModel: SenderViewModel = viewModel()) {
                         textAlign = TextAlign.Center,
                         modifier = Modifier.fillMaxWidth()
                     )
+                }
+            }
+        }
+
+        //household dropdown - mirrors:house-id-div
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .border(1.dp, Color.Gray)
+                .padding(5.dp)
+        ){
+            Text(
+                text = "Select Household",
+                fontSize = 11.sp,
+                fontWeight = FontWeight.Bold,
+                color = TextSecondary,
+                modifier = Modifier.padding(bottom = 4.dp)
+            )
+
+            ExposedDropdownMenuBox(
+                expanded = uiState.isDropdownExpanded,
+                onExpandedChange = { viewModel.onDropdownToggle()}
+            ) {
+                OutlinedTextField(
+                    value = uiState.selectedHousehold?.let {
+                        "${it.id} - ${it.name}"
+                    } ?: "--Select a household --",
+                    onValueChange = {},
+                    readOnly = true,
+                    trailingIcon = {
+                        Icon(Icons.Default.ArrowDropDown, contentDescription = null)
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .menuAnchor(),
+                    textStyle = LocalTextStyle.current.copy(fontSize = 12.sp)
+                )
+
+                ExposedDropdownMenu(
+                    expanded = uiState.isDropdownExpanded,
+                    onDismissRequest = { viewModel.onDropdownDismiss()}
+                ) {
+                    uiState.households.forEach { household ->
+                        DropdownMenuItem(
+                            text = {
+                                Text(
+                                    text = "${household.id} - ${household.name}",
+                                    fontSize = 12.sp
+                                )
+                            },
+                            onClick = { viewModel.onHouseholdSelected(household)}
+                        )
+                    }
                 }
             }
         }
