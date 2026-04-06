@@ -9,3 +9,46 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
+
+data class SenderUiState (
+    val households : List<Household> = sampleHouseholds,
+    val selectedHousehold : Household? = null,
+    val isDropdownExpanded : Boolean = false,
+    val sentLog : List<TriageMessage> = emptyList(0)
+)
+
+
+class SenderViewModel : ViewModel() {
+
+    private val _uiState = MutableStateFlow( SenderUiState() )
+    val uiState : StateFlow<SenderUiState> = _uiState.asStateFlow()
+
+    fun onHouseholdSelected(household : Household) {
+        _uiState.value = _uiState.value.copy (
+            selectedHousehold  = household,
+            isDropdownExpanded = false
+        )
+    }
+
+    fun onDropdownToggle() {
+        _uiState.value = _uiState.value.copy (
+            isDropdownExpanded = !_uiState.value.isDropdownExpanded
+        )
+    }
+
+    fun sendStatus ( status : TriageStatus ) {
+        val household = _uiState.value.selectedHousehold ?: return
+        val message   = TriageMessage (
+            householdId = household.id,
+            status = status
+        )
+
+        _uiState.value = _uiState.value.copy (
+            sentLog = listOf(message) + _uiState.value.sentLog
+        )
+
+        // SMS logic goes here
+
+    }
+
+}
