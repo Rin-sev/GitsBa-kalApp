@@ -28,7 +28,7 @@ fun HomeScreen(
     Column (
         modifier = Modifier
             .fillMaxSize()
-            .background(BackgroundDark),
+            .background(BackgroundLight),
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally
 
@@ -41,19 +41,11 @@ fun HomeScreen(
             Image (
                 painter = painterResource( id = R.drawable.kalapp_logo ),
                 contentDescription = "kalApp logo",
-                modifier = Modifier
-                    .height ( 80.dp )
-                    .widthIn ( max = 240.dp ),
+                modifier = Modifier.size(200.dp),
                 contentScale = ContentScale.Fit
             )
             Spacer ( modifier = Modifier.height(8.dp) )
 
-            Text (
-                text      = "Gits Ba Triage",
-                fontSize  = 14.sp,
-                color     = TextMuted,
-                textAlign = TextAlign.Center
-            )
             Spacer ( modifier = Modifier.height(4.dp) )
 
             Text (
@@ -97,10 +89,10 @@ fun HomeScreen(
 
         // +--- bottom : footer ---+ //
         Text (
-            text      = "<footer message here>>",
+            text      = "ⓒ 2026 Gits Ba",
             fontSize  = 11.sp,
             color     = TextSecondary,
-            modifier  = Modifier.padding(bottom = 32.dp),
+            modifier  = Modifier.padding(bottom = 20.dp),
             textAlign = TextAlign.Center
         )
     }

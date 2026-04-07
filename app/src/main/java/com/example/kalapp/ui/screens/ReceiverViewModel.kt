@@ -22,7 +22,7 @@ data class TriageCounters(
     val urgent: Int = 0,
     val evacuated: Int = 0,
     val safe: Int = 0,
-    val dispatched: Int = 0   // acknowledged == true
+    val acknowledged: Int = 0   // acknowledged == true
 )
 
 class ReceiverViewModel (application: Application) : AndroidViewModel(application) {
@@ -81,10 +81,10 @@ class ReceiverViewModel (application: Application) : AndroidViewModel(applicatio
         _counters.update {
             TriageCounters(
                 unknown = 0,    // TODO: derive from sample households minus received
-                urgent = list.count { !it.acknowledged && it.status == TriageStatus.URGENT },
-                evacuated = list.count { !it.acknowledged && it.status == TriageStatus.EVACUATED },
-                safe = list.count { !it.acknowledged && it.status == TriageStatus.SAFE },
-                dispatched = list.count { !it.acknowledged }
+                urgent = list.count { msg -> !msg.acknowledged && msg.status == TriageStatus.URGENT },
+                evacuated = list.count { msg -> msg.acknowledged && msg.status == TriageStatus.EVACUATED },
+                safe = list.count { msg -> msg.acknowledged && msg.status == TriageStatus.SAFE },
+                acknowledged = list.count { msg -> msg.acknowledged }
             )
         }
     }

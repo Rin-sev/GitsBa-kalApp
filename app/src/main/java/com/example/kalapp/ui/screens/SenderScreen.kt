@@ -3,6 +3,7 @@ package com.example.kalapp.ui.screens
 import android.Manifest
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -21,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -29,6 +31,7 @@ import com.example.kalapp.model.Household
 import com.example.kalapp.model.TriageMessage
 import com.example.kalapp.model.TriageStatus
 import com.example.kalapp.ui.theme.*
+import com.example.kalapp.R
 
 //sent log table
 //mirrors: #scrollable + #entry-table with thead(Date, Time, Status, House id)
@@ -148,31 +151,21 @@ fun SenderScreen(viewModel: SenderViewModel = viewModel()) {
             .padding(15.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)){
 
-        //panel label - mirrors: <h2>Sender Panel</h2>
-        Text(
-            text = "Sender Panel",
-            fontSize = 18.sp,
-            fontWeight = FontWeight.Bold,
-            color = TextPrimary)
-
         //sender-screen - mirrors: #upper-screen border + app name + buttons
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .border(1.dp,Color.Gray)
+                .height(400.dp)
                 .padding(5.dp),
             horizontalAlignment = Alignment.CenterHorizontally){
 
-            //mirrors: #app-name - replace with image() when logo is ready
-            Text(
-                text = "kalApp",
-                fontSize = 30.sp,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 6.dp, bottom = 10.dp)
+            Image(
+                painter = painterResource(id = R.drawable.kalapp_logo),
+                contentDescription = "kalApp logo",
+                modifier = Modifier.size(125.dp)
             )
+
+            Spacer ( modifier = Modifier.height(10.dp) )
 
             //buttons-div - mirrors: #buttons-div column of three buttons
             Column(
@@ -247,7 +240,7 @@ fun SenderScreen(viewModel: SenderViewModel = viewModel()) {
                 OutlinedTextField(
                     value = uiState.selectedHousehold?.let {
                         "${it.id} - ${it.name}"
-                    } ?: "--Select a household --",
+                    } ?: "Select a household",
                     onValueChange = {},
                     readOnly = true,
                     trailingIcon = {

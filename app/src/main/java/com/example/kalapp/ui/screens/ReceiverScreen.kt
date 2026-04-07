@@ -42,14 +42,14 @@ fun ReceiverScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(BackgroundDark)
+            .background(BackgroundLight)
             .padding(16.dp)
     ) {
 
         // -- Header ---------------------------------------------------------------------
         Text(
             text = "Coordinator Dashboard",
-            color = Color.White,
+            color = Color.Black,
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(bottom = 16.dp)
@@ -68,7 +68,7 @@ fun ReceiverScreen(
         // -- Update log header ----------------------------------------------------------
         Text(
             text = "Update Log",
-            color = Color.White,
+            color = Color.Black,
             fontSize = 15.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(bottom = 6.dp)
@@ -151,14 +151,14 @@ private fun StatusCounterRow(counters: TriageCounters) {
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        // Row 2: DISPATCHED (centered, half-width)
+        // Row 2: ACKNOWLEDGED (centered, half-width)
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center
         ) {
             CounterPill(
-                label = "DISPATCHED",
-                count = counters.dispatched,
+                label = "ACKNOWLEDGED",
+                count = counters.acknowledged,
                 bgColor = DispatchedBlue,
                 textColor = Color.White,
                 modifier = Modifier.fillMaxWidth(0.5f)
@@ -220,7 +220,7 @@ private fun LogTableHeader() {
 private fun HeaderCell(text: String, modifier: Modifier) {
     Text(
         text = text,
-        color = TextMuted,
+        color = Color.White,
         fontSize = 11.sp,
         fontWeight = FontWeight.SemiBold,
         modifier = modifier,
@@ -237,16 +237,16 @@ private fun LogRow(
     onAcknowledge: () -> Unit
 ) {
     val rowBg = when {
-        message.acknowledged                        -> Color(0xFF2A2A2A)   // grayed out
-        message.status == TriageStatus.URGENT       -> Color(0xFF3B1010)
-        message.status == TriageStatus.EVACUATED    -> Color(0xFF2E2500)
-        message.status == TriageStatus.SAFE         -> Color(0xFF0D2B1A)
-        else                                        -> Color(0xFF1C1C1E)
+        message.acknowledged -> Color(0xFFF0F0F0)
+        message.status == TriageStatus.URGENT    -> Color(0xFFF0B6B6)
+        message.status == TriageStatus.EVACUATED -> Color(0xFFFFF2CC)
+        message.status == TriageStatus.SAFE      -> Color(0xFFB6D7A8)
+        else                                     -> Color.White
     }
     val statusColor = when (message.status) {
-        TriageStatus.URGENT     -> UrgentRed
-        TriageStatus.EVACUATED  -> EvacuatedAmber
-        TriageStatus.SAFE       -> SafeGreen
+        TriageStatus.URGENT    -> Color(0xFF990000)
+        TriageStatus.EVACUATED -> Color(0xFFB45F06)
+        TriageStatus.SAFE      -> Color(0xFF274E13)
     }
 
     Row(
@@ -260,7 +260,7 @@ private fun LogRow(
         // Date
         Text(
             text = message.formattedDate,
-            color = if (message.acknowledged) TextMuted else Color.White,
+            color = if (message.acknowledged) TextMuted else Color.Black,
             fontSize = 11.sp,
             modifier = Modifier.weight(2f),
             textAlign = TextAlign.Center
@@ -268,7 +268,7 @@ private fun LogRow(
         // Time
         Text(
             text = message.formattedTime,
-            color = if (message.acknowledged) TextMuted else Color.White,
+            color = if (message.acknowledged) TextMuted else Color.Black,
             fontSize = 11.sp,
             modifier = Modifier.weight(2f),
             textAlign = TextAlign.Center
@@ -276,7 +276,7 @@ private fun LogRow(
         // House ID
         Text(
             text = message.houseId,
-            color = if (message.acknowledged) TextMuted else Color.White,
+            color = if (message.acknowledged) TextMuted else Color.Black,
             fontSize = 11.sp,
             modifier = Modifier.weight(2f),
             textAlign = TextAlign.Center
@@ -347,7 +347,7 @@ private fun SampleInjectButton(viewModel: ReceiverViewModel) {
             )
             index++
         },
-        colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.White),
+        colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.Black),
         modifier = Modifier.fillMaxWidth()
     ) {
         Text("[ DEV ] Inject sample SMS report", fontSize = 12.sp)
