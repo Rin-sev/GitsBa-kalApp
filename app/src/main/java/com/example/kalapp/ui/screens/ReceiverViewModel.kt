@@ -57,7 +57,7 @@ class ReceiverViewModel (application: Application) : AndroidViewModel(applicatio
                 dao.insert(message.toEntity())
             }
         }
-
+    }
 
         //---------------------------------------------------------------------------
         // Acknowledge / Respond to a household - flips acknowledged = true
@@ -68,7 +68,7 @@ class ReceiverViewModel (application: Application) : AndroidViewModel(applicatio
                 dao.acknowledge(messageId)
             }
         }
-    }
+
 
     //---------------------------------------------------------------------------
     // Counters
@@ -78,7 +78,6 @@ class ReceiverViewModel (application: Application) : AndroidViewModel(applicatio
     //---------------------------------------------------------------------------
 
     private fun recomputeCounters(list: List<TriageMessage>) {
-        val list = _messages.value
         _counters.update {
             TriageCounters(
                 unknown = 0,    // TODO: derive from sample households minus received
